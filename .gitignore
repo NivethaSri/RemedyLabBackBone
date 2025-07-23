@@ -1,0 +1,43 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+.venv/
+
+# Environment variables
+.env
+
+# VSCode settings (optional)
+.vscode/
+
+# macOS files
+.DS_Store
+
+# Python egg metadata and dist files
+*.egg-info/
+dist/
+build/
+
+# Pytest cache
+.pytest_cache/
+
+# SQLite or app data (if generated locally)
+*.sqlite3
+*.db
+
+# Logs (optional)
+logs/
+*.log
+
+# IDE specific
+.idea/
+
+# Coverage reports
+htmlcov/
+.coverage
+
+# FastAPI OpenAPI cache (if any)
+openapi.json
