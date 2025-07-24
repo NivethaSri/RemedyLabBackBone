@@ -3,6 +3,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from datetime import datetime
 import uuid
 from app.db.database import Base
+from sqlalchemy.orm import relationship
 
 
 def generate_uuid():
@@ -21,3 +22,4 @@ class Doctor(Base):
     contact_number = Column(String)
     experience = Column(String)
     created_at = Column(DateTime, default=datetime.utcnow)
+    reports = relationship("Report", back_populates="doctor")
