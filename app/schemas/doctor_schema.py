@@ -7,9 +7,9 @@ class DoctorSignup(BaseModel):
     email: EmailStr
     password: str
     specialization: str
-    contact_number: str
+    contactNumber: str
     experience: str
-    created_at: datetime = Field(default_factory=datetime.utcnow)
+    gender:str
 
 
 class DoctorInfo(BaseModel):

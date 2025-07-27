@@ -5,19 +5,22 @@ from ..schemas.doctor_schema import DoctorSignup
 from ..schemas.patient_schema import PatientSignup
 from ..schemas.auth_schema import LoginRequest, LoginResponse
 
-from ..services.auth_service import register_doctor, register_patient, login_user
+from ..services.auth_service import register_doctor, register_patient, login_doctor, login_patient
 
 router = APIRouter()
 
-@router.post("/signup/doctor")
+@router.post("/doctor/signup")
 def signup_doctor(data: DoctorSignup, db: Session = Depends(get_db)):
     return register_doctor(data, db)
 
-@router.post("/signup/patient")
+@router.post("/patient/signup")
 def signup_patient(data: PatientSignup, db: Session = Depends(get_db)):
     return register_patient(data, db)
 
+@router.post("/doctor/login")
+def doctor_login(request: LoginRequest, db: Session = Depends(get_db)):
+    return login_doctor(request.email, request.password, db)
 
-@router.post("/signin", response_model=LoginResponse)
-def signin(data: LoginRequest, db: Session = Depends(get_db)):
-    return login_user(data.email, data.password, db)
+@router.post("/patient/login")
+def patient_login(request: LoginRequest, db: Session = Depends(get_db)):
+    return login_patient(request.email, request.password, db)

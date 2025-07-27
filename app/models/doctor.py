@@ -21,5 +21,6 @@ class Doctor(Base):
     specialization = Column(String)
     contact_number = Column(String)
     experience = Column(String)
+    gender = Column(String)
     created_at = Column(DateTime, default=datetime.utcnow)
     reports = relationship("Report", back_populates="doctor")

@@ -10,8 +10,7 @@ class PatientSignup(BaseModel):
     password: str
     age: int
     gender: str
-    contact_number: str
-    created_at: datetime = Field(default_factory=datetime.utcnow)
+    contactNumber: str
 
 class DoctorInfoBrief(BaseModel):
     id: UUID
