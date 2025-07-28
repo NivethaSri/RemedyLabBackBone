@@ -2,9 +2,12 @@ from pydantic import BaseModel
 from uuid import UUID
 from typing import List, Optional, Dict, Any
 from datetime import datetime
+
+
 class ReportUploadRequest(BaseModel):
     patient_id: UUID
     doctor_id: UUID
+
 
 class PatientInfo(BaseModel):
     id: UUID
@@ -14,6 +17,7 @@ class PatientInfo(BaseModel):
     class Config:
         from_attributes = True
 
+
 class ReportResponse(BaseModel):
     id: UUID
     file_name: str
@@ -21,6 +25,8 @@ class ReportResponse(BaseModel):
     uploaded_at: datetime
     patient: PatientInfo
     metrics: Optional[List[Dict[str, Any]]] = None  # <-- Include metrics here
+    ai_recommendation: Optional[str] = ""  # ✅ Added field
+    doctor_recommendation: Optional[str] = ""  # ✅ Added field
 
     class Config:
         from_attributes = True

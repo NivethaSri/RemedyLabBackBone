@@ -3,7 +3,6 @@ from app.api.init import api_router
 from app.db.database import engine, Base
 
 
-
 app = FastAPI()
 
 # Create all tables from models

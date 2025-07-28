@@ -2,14 +2,17 @@ import os
 import uuid
 from datetime import datetime
 from sqlalchemy.orm import Session
-from fastapi import UploadFile , HTTPException
+from fastapi import UploadFile, HTTPException
 from app.models.health_report import Report
 from app.services.extractor_service import extract_text  # your existing function
 from uuid import UUID
 
 UPLOAD_DIR = "uploaded_reports"
 
-def save_report(file: UploadFile, patient_id: uuid.UUID, doctor_id: uuid.UUID, db: Session):
+
+def save_report(
+    file: UploadFile, patient_id: uuid.UUID, doctor_id: uuid.UUID, db: Session
+):
     try:
         # Ensure the upload directory exists
         os.makedirs(UPLOAD_DIR, exist_ok=True)
@@ -33,7 +36,7 @@ def save_report(file: UploadFile, patient_id: uuid.UUID, doctor_id: uuid.UUID, d
             uploaded_at=datetime.utcnow(),
             patient_id=patient_id,
             doctor_id=doctor_id,
-            metrics=parsed_metrics  # Store extracted metrics JSON
+            metrics=parsed_metrics,  # Store extracted metrics JSON
         )
         db.add(new_report)
         db.commit()
@@ -50,9 +53,9 @@ def save_report(file: UploadFile, patient_id: uuid.UUID, doctor_id: uuid.UUID, d
                 "uploaded_at": new_report.uploaded_at.isoformat(),
                 "patient_id": str(new_report.patient_id),
                 "doctor_id": str(new_report.doctor_id),
-                "metrics": new_report.metrics
+                "metrics": new_report.metrics,
             },
-            "timestamp": datetime.utcnow().isoformat()
+            "timestamp": datetime.utcnow().isoformat(),
         }
 
         return response
@@ -64,12 +67,9 @@ def save_report(file: UploadFile, patient_id: uuid.UUID, doctor_id: uuid.UUID, d
             detail={
                 "status": "error",
                 "message": "Failed to upload report",
-                "error": {
-                    "code": 500,
-                    "details": str(e)
-                },
-                "timestamp": datetime.utcnow().isoformat()
-            }
+                "error": {"code": 500, "details": str(e)},
+                "timestamp": datetime.utcnow().isoformat(),
+            },
         )
 
 
@@ -84,10 +84,10 @@ def update_recommendation(report_id: UUID, recommendation: str, db: Session):
                 "message": "Report not found",
                 "error": {
                     "code": 404,
-                    "details": f"No report found with ID {report_id}"
+                    "details": f"No report found with ID {report_id}",
                 },
-                "timestamp": datetime.utcnow().isoformat()
-            }
+                "timestamp": datetime.utcnow().isoformat(),
+            },
         )
 
     # Update recommendation
@@ -103,9 +103,9 @@ def update_recommendation(report_id: UUID, recommendation: str, db: Session):
             "report_id": str(report.id),
             "file_name": report.file_name,
             "ai_recommendation": report.ai_recommendation,
-            "updated_at": datetime.utcnow().isoformat()
+            "updated_at": datetime.utcnow().isoformat(),
         },
-        "timestamp": datetime.utcnow().isoformat()
+        "timestamp": datetime.utcnow().isoformat(),
     }
 
     return response
@@ -122,10 +122,10 @@ def add_doctor_recommendation(report_id: UUID, recommendation: str, db: Session)
                 "message": "Report not found",
                 "error": {
                     "code": 404,
-                    "details": f"No report found with ID {report_id}"
+                    "details": f"No report found with ID {report_id}",
                 },
-                "timestamp": datetime.utcnow().isoformat()
-            }
+                "timestamp": datetime.utcnow().isoformat(),
+            },
         )
 
     # Update doctor recommendation
@@ -141,9 +141,9 @@ def add_doctor_recommendation(report_id: UUID, recommendation: str, db: Session)
             "report_id": str(report.id),
             "file_name": report.file_name,
             "doctor_recommendation": report.doctor_recommendation,
-            "updated_at": datetime.utcnow().isoformat()
+            "updated_at": datetime.utcnow().isoformat(),
         },
-        "timestamp": datetime.utcnow().isoformat()
+        "timestamp": datetime.utcnow().isoformat(),
     }
 
     return response
