@@ -17,4 +17,4 @@ api_router.include_router(
 api_router.include_router(
     recommendation_router, prefix="/ai/doctor", tags=["Recommendation"]
 )
-api_router.include_router(extraction_router, prefix="/extract", tags=["Extraction"])
+# api_router.include_router(extraction_router, prefix="/extract", tags=["Extraction"])
